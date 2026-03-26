@@ -1,10 +1,8 @@
 services:
   ddg-search:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: duckduckgo-mcp-server:latest
-    container_name: duckduckgo-mcp-server
+    image: regv2.gsingh.io/personal/ddgs-mcp:latest
+    container_name: ${CONTAINER_NAME:-duckduckgo-mcp-server}
+    pull_policy: always
     restart: unless-stopped
     environment:
       MCP_TRANSPORT: ${MCP_TRANSPORT:-streamable-http}
@@ -14,3 +12,9 @@ services:
       DDG_REGION: ${DDG_REGION:-}
     ports:
       - "${HOST_PORT:-8000}:${MCP_PORT:-8000}"
+    networks:
+      - ddg_net
+
+networks:
+  ddg_net:
+    enable_ipv6: false
