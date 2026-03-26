@@ -1,0 +1,16 @@
+services:
+  ddg-search:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: duckduckgo-mcp-server:latest
+    container_name: duckduckgo-mcp-server
+    restart: unless-stopped
+    environment:
+      MCP_TRANSPORT: streamable-http
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: 8000
+      DDG_SAFE_SEARCH: MODERATE
+      DDG_REGION: ""
+    ports:
+      - "8000:8000"
