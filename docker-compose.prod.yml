@@ -2,7 +2,7 @@ services:
   ddg-search:
     image: regv2.gsingh.io/personal/ddgs-mcp:latest
     container_name: ${CONTAINER_NAME:-duckduckgo-mcp-server}
-    pull_policy: always
+    pull_policy: missing
     restart: unless-stopped
     environment:
       MCP_TRANSPORT: ${MCP_TRANSPORT:-streamable-http}
