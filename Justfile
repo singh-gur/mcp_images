@@ -40,20 +40,20 @@ help:
 
 # Build image(s) and tag for publish
 build publish_repo=publish_image:
-    @version_tag="$$(if git describe --tags --exact-match >/dev/null 2>&1; then git describe --tags --exact-match; else git rev-parse --short HEAD; fi)"; \
-    printf "Resolved version tag: %s\n" "$${version_tag}"; \
+    @version_tag="$(if git describe --tags --exact-match >/dev/null 2>&1; then git describe --tags --exact-match; else git rev-parse --short HEAD; fi)"; \
+    printf "Resolved version tag: %s\n" "${version_tag}"; \
     docker compose build; \
-    docker tag "{{image}}" "{{publish_repo}}:$${version_tag}"; \
+    docker tag "{{image}}" "{{publish_repo}}:${version_tag}"; \
     docker tag "{{image}}" "{{publish_repo}}:latest"; \
     printf "Tagged images:\n"; \
-    printf "  %s:%s\n" "{{publish_repo}}" "$${version_tag}"; \
+    printf "  %s:%s\n" "{{publish_repo}}" "${version_tag}"; \
     printf "  %s:latest\n" "{{publish_repo}}"
 
 # Push publish tags to registry
 push publish_repo=publish_image:
-    @version_tag="$$(if git describe --tags --exact-match >/dev/null 2>&1; then git describe --tags --exact-match; else git rev-parse --short HEAD; fi)"; \
-    printf "Pushing %s:%s and %s:latest\n" "{{publish_repo}}" "$${version_tag}" "{{publish_repo}}"; \
-    docker push "{{publish_repo}}:$${version_tag}"; \
+    @version_tag="$(if git describe --tags --exact-match >/dev/null 2>&1; then git describe --tags --exact-match; else git rev-parse --short HEAD; fi)"; \
+    printf "Pushing %s:%s and %s:latest\n" "{{publish_repo}}" "${version_tag}" "{{publish_repo}}"; \
+    docker push "{{publish_repo}}:${version_tag}"; \
     docker push "{{publish_repo}}:latest"
 
 # Build and push publish tags
