@@ -17,4 +17,5 @@ services:
 
 networks:
   ddg_net:
+    driver: bridge
     enable_ipv6: false
